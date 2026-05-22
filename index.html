@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spotify Clone</title>
+  <link rel="icon" href="logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(180deg, #121212 0%, #000 100%);
+      color: white;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      background-color: #000;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 0 20px rgba(29,185,84,0.6);
+      animation: glowPulse 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      from { box-shadow: 0 0 10px rgba(29,185,84,0.4); }
+      to { box-shadow: 0 0 25px rgba(29,185,84,0.9); }
+    }
+
+    .logo {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      filter: drop-shadow(0 0 8px #1DB954);
+    }
+
+    .navbar .right {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .navbar a:hover {
+      color: #1DB954;
+    }
+
+    .navbar button {
+      background: white;
+      color: black;
+      border: none;
+      padding: 8px 15px;
+      margin-left: 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .navbar button:hover {
+      background: #1DB954;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .sidebar {
+      width: 20%;
+      min-width: 200px;
+      padding: 20px;
+      background-color: #181818;
+    }
+
+    .card {
+      background: #282828;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .card button {
+      background: white;
+      color: black;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .card button:hover {
+      background: #1DB954;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .main {
+      flex: 1;
+      padding: 20px;
+      min-width: 250px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .box {
+      width: 150px;
+      height: 180px;
+      background: #282828;
+      border-radius: 10px;
+      background-size: cover;
+      background-position: center;
+      transition: 0.3s;
+    }
+
+    .box:hover {
+      transform: scale(1.05);
+    }
+
+    .circle {
+      gap: 30px;
+    }
+
+    .circle-card {
+      text-align: center;
+    }
+
+    .circle-box {
+      width: 110px;
+      height: 110px;
+      background: #282828;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(29,185,84,0.4);
+    }
+
+    .circle-box:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px rgba(29,185,84,0.9);
+    }
+
+    .artist-name {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #b3b3b3;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        text-align: center;
+      }
+      .navbar {
+        flex-direction: column;
+      }
+      .navbar .right {
+        margin-top: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    .page-section {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    .page-section button {
+      background: #1DB954;
+      color: white;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    .page-section button:hover {
+      transform: scale(1.05);
+      background: #1ed760;
+    }
+
+    input,
+    textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 20px;
+      margin: 10px;
+      width: 250px;
+      background: #282828;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="left">
+      <img src="logo.png" alt="Spotify Logo" class="logo" />
+    </div>
+    <div class="right">
+      <a href="#" onclick="showPage('home')">Home</a>
+      <a href="#" onclick="showPage('premium')">Premium</a>
+      <a href="#" onclick="showPage('support')">Support</a>
+      <a href="#" onclick="showPage('download')">Download</a>
+      <a href="#" onclick="showPage('signup')">Sign Up</a>
+      <a href="login.html"><button>Log In</button></a>
+    </div>
+  </div>
+
+ 
+  <div id="home" class="page-section active">
+    <div class="container">
+      <div class="sidebar">
+        <h3>Your Library</h3>
+        <div class="card">
+          <p>Create your first playlist</p>
+          <button onclick="showPage('playlist')">Create playlist</button>
+        </div>
+        <div class="card">
+          <p>Let’s find some podcasts to follow</p>
+          <button onclick="showPage('podcast')">Browse podcasts</button>
+        </div>
+      </div>
+
+      <div class="main">
+        <div class="section">
+          <h2>Trending Songs</h2>
+          <div class="row">
+            <div class="box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPeha0t_dxsPbYnkrv3EA_P6cfXc9eIrBiSvDnkN7hHQVFRRSJnCz-yoqNpew4vpmCka9GexbV6r_kc2dR8ANdxMJH7UXjuF42aaQZDKFKhQ&s=10');"></div>
+            <div class="box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX-ruwNQBL1A-OqlXRnFnf-ycjRcfjwgkR28o_y6fYscNQ9Y6s49QkuMkffvCA1H_JRq39rfBhkLqzE08zFEOi9vsdJe4m3frM6KY8oE_P&s=10');"></div>
+            <div class="box" style="background-image:url('https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTAPp4Cyx0uAkK3RupL-EZJ4z-BPsC01kCIoBIbfPlyW208WBn_');"></div>
+            <div class="box" style="background-image:url('https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587515396_10843.jpg');"></div>
+            <div class="box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0NNU8kAB_RUHJ0RO7RwBWHEHrwtj6SmChMbq9i0LxI9dzq4TcH5Y-D8gP8-X7EcV6hm7TpA1uuYaG_Pc2jq8A1Pvg53Zy0FnRc4U-XQ3P4g&s=10');"></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Popular Artists</h2>
+          <div class="row circle">
+            <div class="circle-card">
+              <div class="circle-box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoXgcW9H7egCYSz322I2eZFyC-SgWigKYnawHamg_eP9Mxzpwaj_eI11OaOmtvkKAFdNhxnFd_UDCV1RVFBQ9PZTdPjcp_R57MOI2jmgoH&s=10);"></div>
+              <div class="artist-name">Arijit Singh</div>
+            </div>
+            <div class="circle-card">
+              <div class="circle-box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxdT9MgDIKOM5W52tIeq5NVFjOxQF3rfGngNaM-D0WlmDqADOfLqJKu7OkBogVO15Z3QQjXJb8fzKIMmIU33xXcH1YkEZ4YnbXeT04iRkJbQ&s=10');"></div>
+              <div class="artist-name">Shreya Ghoshal</div>
+            </div>
+            <div class="circle-card">
+              <div class="circle-box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJuIGgmTp-XlrHH_YeGYuQUC2NQLNoVxRcqMO70Ma63v5vSMD0QlEfMWC524UXx_BQNtKkj6hVdpIoPS52u3rkA-lUF6HIKNEB5TBnr02_&s=10');"></div>
+              <div class="artist-name">Atif Aslam</div>
+            </div>
+            <div class="circle-card">
+              <div class="circle-box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhfLPFfHq09E73OFXYjyKXxmgailnoqxlG9YhGkycAhZl7pWpL3DVcA5kB_PPitIgd-mQtC64RX6yDB9sX2vXTMPrlSOE-BYXvY4zXPgoT&s=10');"></div>
+              <div class="artist-name">Neha Kakkar</div>
+            </div>
+            <div class="circle-card">
+              <div class="circle-box" style="background-image:url('data:image/jpeg;base64,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');"></div>
+              <div class="artist-name">Badshah</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="playlist" class="page-section">
+    <h1 style="color:#1DB954;">Create a New Playlist</h1>
+    <form>
+      <input type="text" placeholder="Playlist Name" required /><br />
+      <textarea placeholder="Description" rows="3"></textarea><br />
+      <button type="submit">Save Playlist</button>
+    </form>
+    <br />
+    <button onclick="showPage('home')">← Back to Home</button>
+  </div>
+
+  <div id="podcast" class="page-section">
+    <h1 style="color:#1DB954;">Browse Podcasts</h1>
+    <p>Discover and follow your favorite podcasts.</p>
+    <div class="row" style="justify-content:center;">
+      <div class="box" style="background-image:url('podcast1.jpg');"></div>
+      <div class="box" style="background-image:url('podcast2.jpg');"></div>
+      <div class="box" style="background-image:url('podcast3.jpg');"></div>
+    </div>
+    <br />
+    <button onclick="showPage('home')">← Back to Home</button>
+  </div>
+
+  <div id="premium" class="page-section">
+    <h1 style="color:#1DB954;">Go Premium</h1>
+    <p>Enjoy ad-free music, offline listening, and high-quality sound.</p>
+    <button>Upgrade Now</button><br /><br />
+    <button onclick="showPage('home')">← Back to Home</button>
+  </div>
+
+  <div id="support" class="page-section">
+    <h1 style="color:#1DB954;">Support Center</h1>
+    <p>Need help? We're here for you.</p>
+    <p>Contact us at <b>support@spotifyclone.com</b></p>
+    <button onclick="showPage('home')">← Back to Home</button>
+  </div>
+
+  <div id="download" class="page-section">
+    <h1 style="color:#1DB954;">Download Spotify</h1>
+    <p>Listen anywhere, anytime.</p>
+    <button>Download Now</button><br /><br />
+    <button onclick="showPage('home')">← Back to Home</button>
+  </div>
+
+  <div id="signup" class="page-section">
+    <h1 style="color:#1DB954;">Create Your Account</h1>
+    <form style="max-width:300px; margin:auto;">
+      <input type="text" placeholder="Full Name" required /><br />
+      <input type="email" placeholder="Email" required /><br />
+      <input type="password" placeholder="Password" required /><br />
+      <button>Sign Up</button>
+    </form>
+    <br />
+    <button onclick="showPage('home')">← Back to Home</button>
+  </div>
+
+  <script>
+    function showPage(pageId) {
+      document.querySelectorAll('.page-section').forEach((sec) => sec.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
