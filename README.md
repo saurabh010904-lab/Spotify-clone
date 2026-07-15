@@ -49,18 +49,6 @@ This project recreates Spotify's elegant interface with a modern UI, responsive 
 
 # 🚀 Getting Started
 
-### Clone the Repository
-
-```bash
-git clone https://github.com/saurabh010904-lab/Spotify-clone.git
-```
-
-### Navigate to the Project
-
-```bash
-cd Spotify-clone
-```
-
 ### Run the Project
 
 Open **index.html** in your preferred browser.
@@ -68,8 +56,6 @@ Open **index.html** in your preferred browser.
 > 💡 **Recommended:** Use the **Live Server** extension in Visual Studio Code for the best development experience.
 
 ---
-
-# 📷 Screenshots
 
 ## 🏠 Home Page
 
@@ -104,7 +90,6 @@ I enjoy building responsive, user-friendly, and modern web applications while co
 
 - 💼 **LinkedIn:** https://www.linkedin.com/in/saurabh-prajapat/
 - 💻 **GitHub:** https://github.com/saurabh010904-lab/Spotify-clone
-
 ---
 
 # 🤝 Contributing
