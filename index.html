@@ -1,374 +1,1033 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spotify Clone</title>
-  <link rel="icon" href="logo.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(180deg, #121212 0%, #000 100%);
-      color: white;
-    }
 
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 25px;
-      background-color: #000;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      box-shadow: 0 0 20px rgba(29,185,84,0.6);
-      animation: glowPulse 3s ease-in-out infinite alternate;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    @keyframes glowPulse {
-      from { box-shadow: 0 0 10px rgba(29,185,84,0.4); }
-      to { box-shadow: 0 0 25px rgba(29,185,84,0.9); }
-    }
+    <title>Spotify Clone | Saurabh Raj</title>
 
-    .logo {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      filter: drop-shadow(0 0 8px #1DB954);
-    }
+    <meta name="description"
+        content="Spotify Clone created using HTML, CSS and JavaScript by Saurabh Raj. Responsive music streaming UI inspired by Spotify.">
 
-    .navbar .right {
-      display: flex;
-      align-items: center;
-    }
+    <meta name="keywords"
+        content="Spotify Clone, HTML, CSS, JavaScript, Music Player, Portfolio, Saurabh Raj">
 
-    .navbar a {
-      color: white;
-      margin-left: 15px;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 14px;
-      transition: 0.3s;
-    }
+    <meta name="author" content="Saurabh Raj">
 
-    .navbar a:hover {
-      color: #1DB954;
-    }
+    <meta name="theme-color" content="#1DB954">
 
-    .navbar button {
-      background: white;
-      color: black;
-      border: none;
-      padding: 8px 15px;
-      margin-left: 15px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo.png">
 
-    .navbar button:hover {
-      background: #1DB954;
-      color: white;
-      transform: scale(1.05);
-    }
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-    }
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    .sidebar {
-      width: 20%;
-      min-width: 200px;
-      padding: 20px;
-      background-color: #181818;
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-    .card {
-      background: #282828;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    .card button {
-      background: white;
-      color: black;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 20px;
-      font-weight: bold;
-      margin-top: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
 
-    .card button:hover {
-      background: #1DB954;
-      color: white;
-      transform: scale(1.05);
-    }
-
-    .main {
-      flex: 1;
-      padding: 20px;
-      min-width: 250px;
-    }
-
-    .section {
-      margin-bottom: 40px;
-    }
-
-    h2 {
-      margin-bottom: 15px;
-    }
-
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .box {
-      width: 150px;
-      height: 180px;
-      background: #282828;
-      border-radius: 10px;
-      background-size: cover;
-      background-position: center;
-      transition: 0.3s;
-    }
-
-    .box:hover {
-      transform: scale(1.05);
-    }
-
-    .circle {
-      gap: 30px;
-    }
-
-    .circle-card {
-      text-align: center;
-    }
-
-    .circle-box {
-      width: 110px;
-      height: 110px;
-      background: #282828;
-      border-radius: 50%;
-      background-size: cover;
-      background-position: center;
-      transition: 0.3s;
-      box-shadow: 0 0 10px rgba(29,185,84,0.4);
-    }
-
-    .circle-box:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 25px rgba(29,185,84,0.9);
-    }
-
-    .artist-name {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #b3b3b3;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-      .sidebar {
-        width: 100%;
-        text-align: center;
-      }
-      .navbar {
-        flex-direction: column;
-      }
-      .navbar .right {
-        margin-top: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-    }
-
-    .page-section {
-      display: none;
-      text-align: center;
-      padding: 60px 20px;
-    }
-
-    .page-section.active {
-      display: block;
-    }
-
-    .page-section button {
-      background: #1DB954;
-      color: white;
-      padding: 10px 25px;
-      border: none;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: 0.3s;
-    }
-
-    .page-section button:hover {
-      transform: scale(1.05);
-      background: #1ed760;
-    }
-
-    input,
-    textarea {
-      padding: 10px;
-      border: none;
-      border-radius: 20px;
-      margin: 10px;
-      width: 250px;
-      background: #282828;
-      color: white;
-    }
-  </style>
 </head>
+
 <body>
 
-  <div class="navbar">
-    <div class="left">
-      <img src="logo.png" alt="Spotify Logo" class="logo" />
-    </div>
-    <div class="right">
-      <a href="#" onclick="showPage('home')">Home</a>
-      <a href="#" onclick="showPage('premium')">Premium</a>
-      <a href="#" onclick="showPage('support')">Support</a>
-      <a href="#" onclick="showPage('download')">Download</a>
-      <a href="#" onclick="showPage('signup')">Sign Up</a>
-      <a href="login.html"><button>Log In</button></a>
-    </div>
-  </div>
+    <!-- ================= LOADER ================= -->
 
- 
-  <div id="home" class="page-section active">
-    <div class="container">
-      <div class="sidebar">
-        <h3>Your Library</h3>
-        <div class="card">
-          <p>Create your first playlist</p>
-          <button onclick="showPage('playlist')">Create playlist</button>
-        </div>
-        <div class="card">
-          <p>Let’s find some podcasts to follow</p>
-          <button onclick="showPage('podcast')">Browse podcasts</button>
-        </div>
-      </div>
+    <div id="loader">
 
-      <div class="main">
-        <div class="section">
-          <h2>Trending Songs</h2>
-          <div class="row">
-            <div class="box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPeha0t_dxsPbYnkrv3EA_P6cfXc9eIrBiSvDnkN7hHQVFRRSJnCz-yoqNpew4vpmCka9GexbV6r_kc2dR8ANdxMJH7UXjuF42aaQZDKFKhQ&s=10');"></div>
-            <div class="box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX-ruwNQBL1A-OqlXRnFnf-ycjRcfjwgkR28o_y6fYscNQ9Y6s49QkuMkffvCA1H_JRq39rfBhkLqzE08zFEOi9vsdJe4m3frM6KY8oE_P&s=10');"></div>
-            <div class="box" style="background-image:url('https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTAPp4Cyx0uAkK3RupL-EZJ4z-BPsC01kCIoBIbfPlyW208WBn_');"></div>
-            <div class="box" style="background-image:url('https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587515396_10843.jpg');"></div>
-            <div class="box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0NNU8kAB_RUHJ0RO7RwBWHEHrwtj6SmChMbq9i0LxI9dzq4TcH5Y-D8gP8-X7EcV6hm7TpA1uuYaG_Pc2jq8A1Pvg53Zy0FnRc4U-XQ3P4g&s=10');"></div>
-          </div>
+        <div class="loader-content">
+
+            <img src="images/logo.png"
+                 alt="Spotify Logo">
+
+            <h2>Spotify</h2>
+
+            <div class="loading-bar">
+
+                <div class="loading"></div>
+
+            </div>
+
         </div>
 
-        <div class="section">
-          <h2>Popular Artists</h2>
-          <div class="row circle">
-            <div class="circle-card">
-              <div class="circle-box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoXgcW9H7egCYSz322I2eZFyC-SgWigKYnawHamg_eP9Mxzpwaj_eI11OaOmtvkKAFdNhxnFd_UDCV1RVFBQ9PZTdPjcp_R57MOI2jmgoH&s=10);"></div>
-              <div class="artist-name">Arijit Singh</div>
+    </div>
+
+    <!-- ================= APP ================= -->
+
+    <div class="app-container">
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar">
+
+            <a href="https://open.spotify.com/"
+               target="_blank"
+               class="logo">
+
+                <img src="images/logo.png"
+                     alt="Spotify Logo">
+
+                <h2>Spotify</h2>
+
+            </a>
+
+            <nav>
+
+                <ul>
+
+                    <li class="active">
+
+                        <i class="fa-solid fa-house"></i>
+
+                        <span>Home</span>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <span>Search</span>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-book"></i>
+
+                        <span>Your Library</span>
+
+                    </li>
+
+                </ul>
+
+            </nav>
+
+            <div class="playlist-box">
+
+                <h3>Create your first playlist</h3>
+
+                <p>
+                    It's easy. We'll help you build the perfect playlist.
+                </p>
+
+                <a href="https://open.spotify.com/collection/playlists"
+                   target="_blank"
+                   class="playlist-btn">
+
+                    Create Playlist
+
+                </a>
+
             </div>
-            <div class="circle-card">
-              <div class="circle-box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxdT9MgDIKOM5W52tIeq5NVFjOxQF3rfGngNaM-D0WlmDqADOfLqJKu7OkBogVO15Z3QQjXJb8fzKIMmIU33xXcH1YkEZ4YnbXeT04iRkJbQ&s=10');"></div>
-              <div class="artist-name">Shreya Ghoshal</div>
+
+            <div class="playlist-box">
+
+                <h3>Let's find some podcasts</h3>
+
+                <p>
+                    News, comedy, business and technology.
+                </p>
+
+                <a href="https://open.spotify.com/genre/podcasts-web"
+                   target="_blank"
+                   class="playlist-btn">
+
+                    Browse Podcasts
+
+                </a>
+
             </div>
-            <div class="circle-card">
-              <div class="circle-box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJuIGgmTp-XlrHH_YeGYuQUC2NQLNoVxRcqMO70Ma63v5vSMD0QlEfMWC524UXx_BQNtKkj6hVdpIoPS52u3rkA-lUF6HIKNEB5TBnr02_&s=10');"></div>
-              <div class="artist-name">Atif Aslam</div>
-            </div>
-            <div class="circle-card">
-              <div class="circle-box" style="background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhfLPFfHq09E73OFXYjyKXxmgailnoqxlG9YhGkycAhZl7pWpL3DVcA5kB_PPitIgd-mQtC64RX6yDB9sX2vXTMPrlSOE-BYXvY4zXPgoT&s=10');"></div>
-              <div class="artist-name">Neha Kakkar</div>
-            </div>
-            <div class="circle-card">
-              <div class="circle-box" style="background-image:url('data:image/jpeg;base64,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');"></div>
-              <div class="artist-name">Badshah</div>
-            </div>
-          </div>
+
+        </aside>
+
+        <!-- ================= MAIN CONTENT ================= -->
+
+        <main class="main-content">
+            <!-- ===================== TOP NAVBAR ===================== -->
+
+<header class="topbar">
+
+    <div class="nav-left">
+
+        <button aria-label="Previous Page">
+
+            <i class="fa-solid fa-chevron-left"></i>
+
+        </button>
+
+        <button aria-label="Next Page">
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+    </div>
+
+    <!-- SEARCH -->
+
+    <div class="search-bar">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="search"
+            placeholder="What do you want to play?"
+            aria-label="Search Music">
+
+    </div>
+
+    <!-- RIGHT NAVIGATION -->
+
+    <div class="nav-right">
+
+        <a href="https://www.spotify.com/premium/"
+            target="_blank"
+            class="premium-btn">
+
+            Explore Premium
+
+        </a>
+
+        <a href="https://www.spotify.com/download/"
+            target="_blank"
+            class="install-btn">
+
+            <i class="fa-solid fa-circle-down"></i>
+
+            Install App
+
+        </a>
+
+        <div class="profile">
+
+            <img
+                src="images/profile.jpg"
+                alt="Profile"
+                loading="lazy">
+
         </div>
-      </div>
+
     </div>
-  </div>
 
+</header>
 
-  <div id="playlist" class="page-section">
-    <h1 style="color:#1DB954;">Create a New Playlist</h1>
-    <form>
-      <input type="text" placeholder="Playlist Name" required /><br />
-      <textarea placeholder="Description" rows="3"></textarea><br />
-      <button type="submit">Save Playlist</button>
-    </form>
-    <br />
-    <button onclick="showPage('home')">← Back to Home</button>
-  </div>
+<!-- ===================== HERO ===================== -->
 
-  <div id="podcast" class="page-section">
-    <h1 style="color:#1DB954;">Browse Podcasts</h1>
-    <p>Discover and follow your favorite podcasts.</p>
-    <div class="row" style="justify-content:center;">
-      <div class="box" style="background-image:url('podcast1.jpg');"></div>
-      <div class="box" style="background-image:url('podcast2.jpg');"></div>
-      <div class="box" style="background-image:url('podcast3.jpg');"></div>
+<section class="hero">
+
+    <div class="hero-overlay">
+
+        <div class="hero-text">
+
+            <span class="tag">
+
+                🎵 #1 Music Streaming Platform
+
+            </span>
+
+            <h1>
+
+                Feel the Music.<br>
+
+                Live the Moment.
+
+            </h1>
+
+            <p>
+
+                Stream over <strong>100 million songs</strong>,
+                podcasts and playlists from artists around the world.
+                Enjoy high-quality audio, personalized recommendations
+                and unlimited entertainment anytime, anywhere.
+
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="https://open.spotify.com/"
+                    target="_blank"
+                    class="play-now">
+
+                    <i class="fa-solid fa-play"></i>
+
+                    Play on Spotify
+
+                </a>
+
+                <a href="https://open.spotify.com/genre/music"
+                    target="_blank"
+                    class="browse-btn">
+
+                    Browse Music
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="hero-image">
+
+            <img
+                src="images/hero.png"
+                alt="Spotify Hero"
+                loading="eager">
+
+        </div>
+
     </div>
-    <br />
-    <button onclick="showPage('home')">← Back to Home</button>
-  </div>
 
-  <div id="premium" class="page-section">
-    <h1 style="color:#1DB954;">Go Premium</h1>
-    <p>Enjoy ad-free music, offline listening, and high-quality sound.</p>
-    <button>Upgrade Now</button><br /><br />
-    <button onclick="showPage('home')">← Back to Home</button>
-  </div>
+</section>
 
-  <div id="support" class="page-section">
-    <h1 style="color:#1DB954;">Support Center</h1>
-    <p>Need help? We're here for you.</p>
-    <p>Contact us at <b>support@spotifyclone.com</b></p>
-    <button onclick="showPage('home')">← Back to Home</button>
-  </div>
+<!-- ===================== FEATURED PLAYLISTS ===================== -->
 
-  <div id="download" class="page-section">
-    <h1 style="color:#1DB954;">Download Spotify</h1>
-    <p>Listen anywhere, anytime.</p>
-    <button>Download Now</button><br /><br />
-    <button onclick="showPage('home')">← Back to Home</button>
-  </div>
+<section class="section">
 
-  <div id="signup" class="page-section">
-    <h1 style="color:#1DB954;">Create Your Account</h1>
-    <form style="max-width:300px; margin:auto;">
-      <input type="text" placeholder="Full Name" required /><br />
-      <input type="email" placeholder="Email" required /><br />
-      <input type="password" placeholder="Password" required /><br />
-      <button>Sign Up</button>
-    </form>
-    <br />
-    <button onclick="showPage('home')">← Back to Home</button>
-  </div>
+    <div class="section-header">
 
-  <script>
-    function showPage(pageId) {
-      document.querySelectorAll('.page-section').forEach((sec) => sec.classList.remove('active'));
-      document.getElementById(pageId).classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  </script>
+        <h2>Featured Playlists</h2>
+
+        <a href="https://open.spotify.com/genre/pop"
+            target="_blank">
+
+            Show all
+
+        </a>
+
+    </div>
+
+    <div class="card-container">
+
+        <!-- CARD 1 -->
+
+        <article class="music-card">
+
+            <div class="card-image">
+
+                <img
+                    src="images/albums/album1.jpg"
+                    alt="Today's Top Hits"
+                    loading="lazy">
+
+                <button class="play-hover"
+                    aria-label="Play Today's Top Hits">
+
+                    <i class="fa-solid fa-play"></i>
+
+                </button>
+
+            </div>
+
+            <h3>Today's Top Hits</h3>
+
+            <p>
+                Ed Sheeran, Dua Lipa,
+                Imagine Dragons,
+                The Weeknd & more.
+            </p>
+
+        </article>
+
+        <!-- CARD 2 -->
+
+        <article class="music-card">
+
+            <div class="card-image">
+
+                <img
+                    src="images/albums/album2.jpg"
+                    alt="RapCaviar"
+                    loading="lazy">
+
+                <button class="play-hover"
+                    aria-label="Play RapCaviar">
+
+                    <i class="fa-solid fa-play"></i>
+
+                </button>
+
+            </div>
+
+            <h3>RapCaviar</h3>
+
+            <p>
+
+                The biggest Hip-Hop hits
+                from around the world.
+
+            </p>
+
+        </article>
+
+        <!-- CARD 3 -->
+
+        <article class="music-card">
+
+            <div class="card-image">
+
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd8vDPrVqnVrMLuk3o54L-5LUtwYLsrRKOQOIraz1tzg&s=10"
+                    alt="Chill Hits"
+                    loading="lazy">
+
+                <button class="play-hover"
+                    aria-label="Play Chill Hits">
+
+                    <i class="fa-solid fa-play"></i>
+
+                </button>
+
+            </div>
+
+            <h3>Chill Hits</h3>
+
+            <p>
+
+                Relax with soothing music
+                for work, study and sleep.
+
+            </p>
+
+        </article>
+
+        <!-- CARD 4 -->
+
+        <article class="music-card">
+
+            <div class="card-image">
+
+                <img
+                    src="images/albums/album4.jpg"
+                    alt="Mood Booster"
+                    loading="lazy">
+
+                <button class="play-hover"
+                    aria-label="Play Mood Booster">
+
+                    <i class="fa-solid fa-play"></i>
+
+                </button>
+
+            </div>
+
+            <h3>Mood Booster</h3>
+
+            <p>
+
+                Positive vibes and energetic
+                songs to brighten your day.
+
+            </p>
+
+        </article>
+
+        <!-- CARD 5 -->
+
+        <article class="music-card">
+
+            <div class="card-image">
+
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxI56pKaSs7wddeSQiH3aGy8W2csDlrPZ_0DBCm4iUig&s=10"
+                    alt="Rock Classics"
+                    loading="lazy">
+
+                <button class="play-hover"
+                    aria-label="Play Rock Classics">
+
+                    <i class="fa-solid fa-play"></i>
+
+                </button>
+
+            </div>
+
+            <h3>Rock Classics</h3>
+
+            <p>
+
+                Queen, Bon Jovi,
+                AC/DC, Guns N' Roses
+                and more.
+
+            </p>
+
+        </article>
+
+        <!-- CARD 6 -->
+
+        <article class="music-card">
+
+            <div class="card-image">
+
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdoRafkE5MNW3Ws24qX07EYnTgZQ7bqTn90oL3wk5JQQ&s=10"
+                    alt="Lo-Fi Beats"
+                    loading="lazy">
+
+                <button class="play-hover"
+                    aria-label="Play Lo-Fi Beats">
+
+                    <i class="fa-solid fa-play"></i>
+
+                </button>
+
+            </div>
+
+            <h3>Lo-Fi Beats</h3>
+
+            <p>
+
+                Calm instrumental beats
+                for coding,
+                studying and relaxing.
+
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+<!-- ===================== POPULAR ARTISTS ===================== -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <h2>Popular Artists</h2>
+
+        <a href="https://open.spotify.com/genre/pop"
+            target="_blank">
+
+            Show all
+
+        </a>
+
+    </div>
+
+    <div class="artist-container">
+
+        <article class="artist-card">
+
+            <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyUXnL2lIb24Bb0nDMu1ag5Cb9CBVFuXz8WEz9cnyEOQ&s=10"
+                alt="Arijit Singh"
+                loading="lazy">
+
+            <h3>Arijit Singh</h3>
+
+            <p>Indian Playback Singer</p>
+
+        </article>
+
+        <article class="artist-card">
+
+            <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeFtEFGnb913J-rAmD44JlZiAztHTaOJ6h41e_YCDnQA&s=10"
+                alt="Atif Aslam"
+                loading="lazy">
+
+            <h3>Atif Aslam</h3>
+
+            <p>Pakistani Singer</p>
+
+        </article>
+
+        <article class="artist-card">
+
+            <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5Pp5X9U4t6Cc6u0_K4HMxP5b89rusA5XqPYvdzNHMeA&s=10"
+                alt="Anuv Jain"
+                loading="lazy">
+
+            <h3>Anuv Jain</h3>
+
+            <p>Independent Artist</p>
+
+        </article>
+
+        <article class="artist-card">
+
+            <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2GY9qTYbcYUkPjmpuhW8MEZSTpYOdn2oEninlBG39yw&s=10"
+                alt="Shreya Ghoshal"
+                loading="lazy">
+
+            <h3>Shreya Ghoshal</h3>
+
+            <p>Indian Playback Singer</p>
+
+        </article>
+
+        <article class="artist-card">
+
+            <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLPFa9k_zxwhjTmExEUbMCtHmNq1-JJiMVapvH7zBiVQ&s=10
+                alt="The Weeknd"
+                loading="lazy">
+
+            <h3>The Weeknd</h3>
+
+            <p>Canadian Singer</p>
+
+        </article>
+
+    </div>
+
+</section>
+
+<!-- ===================== RECENTLY PLAYED ===================== -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <h2>Recently Played</h2>
+
+        <a href="https://open.spotify.com/collection/tracks"
+            target="_blank">
+
+            Show all
+
+        </a>
+
+    </div>
+
+    <div class="recent-list">
+
+        <div class="recent-item">
+
+            <img
+                src="images/albums/album1.jpg"
+                alt="Perfect"
+                loading="lazy">
+
+            <div>
+
+                <h4>Perfect</h4>
+
+                <p>Ed Sheeran</p>
+
+            </div>
+
+            <span>4:23</span>
+
+        </div>
+
+        <div class="recent-item">
+
+            <img
+                src="images/albums/album2.jpg"
+                alt="Blinding Lights"
+                loading="lazy">
+
+            <div>
+
+                <h4>Blinding Lights</h4>
+
+                <p>The Weeknd</p>
+
+            </div>
+
+            <span>3:20</span>
+
+        </div>
+
+        <div class="recent-item">
+
+            <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ2KZ3ULbHLY7RxN1eZsIVBTWMD0gKTckYeuQsrvqj4Q&s=10"
+                alt="Apna Bana Le"
+                loading="lazy">
+
+            <div>
+
+                <h4>Apna Bana Le</h4>
+
+                <p>Arijit Singh</p>
+
+            </div>
+
+            <span>4:11</span>
+
+        </div>
+
+        <div class="recent-item">
+
+            <img
+                src="images/albums/album4.jpg"
+                alt="Husn"
+                loading="lazy">
+
+            <div>
+
+                <h4>Husn</h4>
+
+                <p>Anuv Jain</p>
+
+            </div>
+
+            <span>3:48</span>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ===================== POPULAR PODCASTS ===================== -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <h2>🎙️ Popular Podcasts</h2>
+
+        <a href="https://open.spotify.com/genre/podcasts-web"
+            target="_blank">
+
+            Show all
+
+        </a>
+
+    </div>
+
+    <div class="card-container">
+
+        <!-- Podcast 1 -->
+
+        <article class="music-card">
+
+            <div class="card-image">
+
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcTNFQffJDUF6ZsB_Q_IRpZIHD0XBDIHchlpukPQQzZA&s=10"
+                    alt="Tech Talks"
+                    loading="lazy">
+
+            </div>
+
+            <h3>Tech Talks</h3>
+
+            <p>
+
+                AI, Programming, Web Development
+                & the latest technology trends.
+
+            </p>
+
+        </article>
+
+        <!-- Podcast 2 -->
+
+        <article class="music-card">
+
+            <div class="card-image">
+
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDGAXFS7Y6ooKFykofJfzkguPIDLXvyvyrV-m8Cq8Z3w&s=10"
+                    alt="Startup Stories"
+                    loading="lazy">
+
+            </div>
+
+            <h3>Startup Stories</h3>
+
+            <p>
+
+                Inspiring journeys from successful
+                entrepreneurs around the world.
+
+            </p>
+
+        </article>
+
+        <!-- Podcast 3 -->
+
+        <article class="music-card">
+
+            <div class="card-image">
+
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLNeQeYpJlbyc0djy9VTnNnvktbpmzb9UBqGXw4Mge4Q&s=10"
+                    alt="Daily Motivation"
+                    loading="lazy">
+
+            </div>
+
+            <h3>Daily Motivation</h3>
+
+            <p>
+
+                Positive mindset, productivity,
+                success habits and life lessons.
+
+            </p>
+
+        </article>
+
+        <!-- Podcast 4 -->
+
+        <article class="music-card">
+
+            <div class="card-image">
+
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSDunDMF9dKeOtnYqtn0CoXk6AVFHiWEMt90oUSgVOqw&s=10"
+                    alt="Music Stories"
+                    loading="lazy">
+
+            </div>
+
+            <h3>Music Stories</h3>
+
+            <p>
+
+                Behind the scenes of your favourite
+                artists and albums.
+
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+<!-- ===================== MUSIC PLAYER ===================== -->
+
+<div class="music-player">
+
+    <!-- LEFT -->
+
+    <div class="player-left">
+
+        <img
+            src="images/albums/album1.jpg"
+            alt="Perfect Song"
+            loading="lazy">
+
+        <div>
+
+            <h4>Perfect</h4>
+
+            <p>Ed Sheeran</p>
+
+        </div>
+
+        <i class="fa-regular fa-heart"></i>
+
+    </div>
+
+    <!-- CENTER -->
+
+    <div class="player-center">
+
+        <div class="controls">
+
+            <button aria-label="Shuffle">
+
+                <i class="fa-solid fa-shuffle"></i>
+
+            </button>
+
+            <button aria-label="Previous">
+
+                <i class="fa-solid fa-backward-step"></i>
+
+            </button>
+
+            <button
+                id="playBtn"
+                class="play-btn"
+                aria-label="Play">
+
+                <i class="fa-solid fa-play"></i>
+
+            </button>
+
+            <button aria-label="Next">
+
+                <i class="fa-solid fa-forward-step"></i>
+
+            </button>
+
+            <button aria-label="Repeat">
+
+                <i class="fa-solid fa-repeat"></i>
+
+            </button>
+
+        </div>
+
+        <div class="progress">
+
+            <span>0:00</span>
+
+            <input
+                id="progressBar"
+                type="range"
+                min="0"
+                max="100"
+                value="0">
+
+            <span>3:45</span>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="player-right">
+
+        <i class="fa-solid fa-microphone"></i>
+
+        <i class="fa-solid fa-list"></i>
+
+        <i class="fa-solid fa-desktop"></i>
+
+        <i class="fa-solid fa-volume-high"></i>
+
+        <input
+            id="volumeSlider"
+            type="range"
+            min="0"
+            max="100"
+            value="75">
+
+        <i class="fa-solid fa-expand"></i>
+
+    </div>
+
+</div>
+<!-- ===================== FOOTER ===================== -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-left">
+
+            <h2>Spotify Clone</h2>
+
+            <p>
+
+                This project is inspired by Spotify and
+                developed by <strong>Saurabh Raj</strong>
+                using HTML, CSS and JavaScript.
+
+            </p>
+
+        </div>
+
+        <div class="footer-center">
+
+            <h3>Quick Links</h3>
+
+            <ul>
+
+                <li>
+                    <a href="#">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Playlists
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Artists
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Podcasts
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="footer-right">
+
+            <h3>Connect</h3>
+
+            <div class="social-links">
+
+                <a href="https://github.com/saurabh010904-lab/Spotify-clone"
+                   target="_blank"
+                   aria-label="GitHub Repository">
+
+                    <i class="fab fa-github"></i>
+
+                </a>
+
+                <a href="https://www.linkedin.com/in/saurabh-prajapat/"
+                   target="_blank"
+                   aria-label="LinkedIn">
+
+                    <i class="fab fa-linkedin"></i>
+
+                </a>
+
+                <!-- Replace this with your deployed project URL -->
+                <a href="#"
+                   target="_blank"
+                   aria-label="Live Demo">
+
+                    <i class="fas fa-globe"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="copyright">
+
+        <p>
+
+            © 2026 <strong>Saurabh Raj</strong>. All Rights Reserved.
+
+        </p>
+
+    </div>
+
+</footer>
+
+<!-- ===================== AUDIO ===================== -->
+
+<audio id="audioPlayer"></audio>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+
+<script src="js/script.js"></script>
+
+</main>
+
+</div>
+
 </body>
+
 </html>
